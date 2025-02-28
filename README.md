@@ -45,13 +45,13 @@ Endpoint to query from an `orderId`
   curl --location 'http://localhost:8080/api/v1/{orderId}/orders'
 ```
 
-Endpoint para consultar todos os perdidos
+Endpoint to consult all lost
 
 ```http
   curl --location 'http://localhost:8080/api/v1/orders'
 ```
 
-Para passar um filtro de data
+To pass a date filter
 
 ```http
   curl --location 'http://localhost:8080/api/v1/orders?startDate={yyyy-MM-dd}&endDate={yyyy-MM-dd}'
