@@ -1,23 +1,27 @@
 package com.orders.translate.entities;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.MongoId;
+import jakarta.persistence.*;
 
 import java.util.List;
 
-@Document(collection = "orders_tb")
-public class OrderEntity {
+@Entity
+public class Users {
 
-    @MongoId
-    private Long id;
-
+    @Id
     private Long userId;
 
     private String name;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Orders> orders;
 
-    public OrderEntity() {
+    public Users() {
+    }
+
+    public Users(Long userId, String name, List<Orders> orders) {
+        this.userId = userId;
+        this.name = name;
+        this.orders = orders;
     }
 
     public Long getUserId() {

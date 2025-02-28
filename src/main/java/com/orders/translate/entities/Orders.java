@@ -1,29 +1,38 @@
 package com.orders.translate.entities;
 
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Field;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.math.BigDecimal;
-import java.util.Date;
+import jakarta.persistence.*;
+
 import java.util.List;
 
-
+@Entity
 public class Orders {
 
-    @Indexed(name = "order_id_index")
+    @Id
     private Long orderId;
 
-    @Field(targetType = FieldType.DECIMAL128)
-    private BigDecimal total;
+    private String date;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date date;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private Users user;
 
+    @ManyToMany
+    @JoinTable(
+            name = "orders_products",
+            joinColumns = @JoinColumn(name = "orderId"),
+            inverseJoinColumns = @JoinColumn(name = "productId")
+    )
     private List<Products> products;
 
-    public Orders() {;
+    public Orders() {
+    }
+
+    public Orders(Long orderId, List<Products> products, Users user, String date) {
+        this.orderId = orderId;
+        this.products = products;
+        this.user = user;
+        this.date = date;
     }
 
     public Long getOrderId() {
@@ -42,19 +51,19 @@ public class Orders {
         this.products = products;
     }
 
-    public Date getDate() {
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
-    }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
     }
 }
