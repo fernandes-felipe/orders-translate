@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 @Controller
-@RequestMapping("/api/translate")
+@RequestMapping("/api/v1/translate")
 public class UploadFileController {
     private final Logger logger = Logger.getLogger(UploadFileController.class.getName());
 
